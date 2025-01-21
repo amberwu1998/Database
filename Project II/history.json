@@ -1,0 +1,289 @@
+[
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Facility ID",
+    "expression": "value.toNumber()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column Facility ID using expression value.toNumber()"
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "range",
+          "name": "Facility ID",
+          "expression": "value",
+          "columnName": "Facility ID",
+          "from": 0,
+          "to": 680000,
+          "selectNumeric": false,
+          "selectNonNumeric": true,
+          "selectBlank": true,
+          "selectError": true
+        }
+      ],
+      "mode": "record-based"
+    },
+    "description": "Remove rows"
+  },
+  {
+    "op": "core/row-reorder",
+    "mode": "record-based",
+    "sorting": {
+      "criteria": [
+        {
+          "valueType": "string",
+          "column": "Facility ID",
+          "blankPosition": -1,
+          "errorPosition": 1,
+          "reverse": false,
+          "caseSensitive": false
+        }
+      ]
+    },
+    "description": "Reorder rows"
+  },
+  {
+    "op": "core/blank-down",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "Facility ID",
+          "expression": "facetCount(value, 'value', 'Facility ID') > 1",
+          "columnName": "Facility ID",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Facility ID",
+    "description": "Blank down cells in column Facility ID"
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "Facility ID",
+          "expression": "facetCount(value, 'value', 'Facility ID') > 1",
+          "columnName": "Facility ID",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        },
+        {
+          "type": "list",
+          "name": "Starred Rows",
+          "expression": "row.starred",
+          "columnName": "",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "record-based"
+    },
+    "description": "Remove rows"
+  },
+  {
+    "op": "core/column-split",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Hospital Ownership",
+    "guessCellType": true,
+    "removeOriginalColumn": false,
+    "mode": "separator",
+    "separator": " - ",
+    "regex": false,
+    "maxColumns": 0,
+    "description": "Split column Hospital Ownership by separator"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Hospital Ownership 1",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Proprietary",
+          "proprietary"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Proprietary"
+      },
+      {
+        "from": [
+          "Government State",
+          "Government  State"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Government State"
+      }
+    ],
+    "description": "Mass edit cells in column Hospital Ownership 1"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Hospital Ownership 1",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Government State"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Government"
+      }
+    ],
+    "description": "Mass edit cells in column Hospital Ownership 1"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Hospital Ownership 1",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Voluntary non profit"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Voluntary non-profit"
+      }
+    ],
+    "description": "Mass edit cells in column Hospital Ownership 1"
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "Hospital Ownership 1",
+          "expression": "value",
+          "columnName": "Hospital Ownership 1",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "Not Available",
+                "l": "Not Available"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "record-based"
+    },
+    "description": "Remove rows"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Hospital overall rating",
+    "expression": "value.toNumber()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column Hospital overall rating using expression value.toNumber()"
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "range",
+          "name": "Hospital overall rating",
+          "expression": "value",
+          "columnName": "Hospital overall rating",
+          "from": 80,
+          "to": 1010,
+          "selectNumeric": true,
+          "selectNonNumeric": false,
+          "selectBlank": true,
+          "selectError": true
+        }
+      ],
+      "mode": "record-based"
+    },
+    "description": "Remove rows"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "ZIP Code",
+    "expression": "value.toNumber()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column ZIP Code using expression value.toNumber()"
+  }
+]
