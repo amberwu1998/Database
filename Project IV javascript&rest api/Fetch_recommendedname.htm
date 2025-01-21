@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Proteins with Recommended Name</title>    
+</head>
+
+<body>
+    <h1>List of Proteins and Associated Genes with Recommended Name</h1>
+    <div align="center">
+        <button type="button" class="button" onclick="getRecommendedName()">
+            Click Here!
+        </button>
+    </div>
+    <ul id="proteinList"></ul>
+
+    <script>
+        const api_url = 'uniprot.json';
+        async function getRecommendedName() {
+            const response = await fetch(api_url);
+            let data = await response.json();
+            const proteins = data.docs.filter(docfile => docfile.protein && docfile.protein.recommendedName);
+
+            const proteinList = document.getElementById('proteinList');
+            proteinList.innerHTML = ''; 
+
+            proteins.forEach(protein => {
+                const proteinRecName = (protein.protein.recommendedName && protein.protein.recommendedName.fullName && protein.protein.recommendedName.fullName.value) || 'Not Applicable';
+
+                if (protein.gene[0].name || protein.gene[0].orfNames) { 
+                    const geneName = protein.gene[0].name ? protein.gene[0].name.value : "";
+                    const orfName = protein.gene[0].orfNames ? protein.gene[0].orfNames[0].value : "";
+                    const displayName = geneName || orfName;
+                    proteinList.innerHTML += `<li>Protein Accession: ${protein.accession}, Recommended Name of Protein: ${proteinRecName}, Associated Gene: ${displayName}</li>`;
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Proteins with “proteinExistence” having “Predicted” values</title>
+</head>
+
+<body>
+    <h1 align="center">List of Predicted Proteins</h1>
+    <div align="center">
+        <button type="button" class="button" onclick="getPredictedProteins();">
+            Click Here!
+        </button>
+        <div id="container"></div>
+    </div>
+
+    <script type="application/javascript">
+        function getPredictedProteins() {
+            // The file to process
+            var data_file = "uniprot.json";
+
+            // Create an XMLHttpRequest object
+            var http_request = new XMLHttpRequest();
+
+            // Callback function: Process the response
+            http_request.onreadystatechange = function() {
+                if (http_request.readyState == 4 && http_request.status == 200) {
+                    var table = "<table border='3' bgcolor='lightblue' width='60%' align='center'>";
+                    table += "<tr class='th'><th>Accession</th><th>proteinExistence</th></tr>";
+
+                    // Javascript function JSON. Parse JSON data
+                    var jsonObj = JSON.parse(http_request.responseText); 
+                    //check if everything is ok.
+                    console.log(jsonObj);
+                    let size = jsonObj.docs.length;
+
+                    for (var i = 0; i < size; i++) {
+                        if (jsonObj.docs[i].proteinExistence === "Predicted") {
+                            table += "<tr>";
+                            table += "<td>" + jsonObj.docs[i].accession + "</td>";
+                            table += "<td>" + jsonObj.docs[i].proteinExistence + "</td>";
+                            table += "</tr>";
+                        }
+                    }
+
+                    table += "</table>";
+
+                    document.getElementById('container').innerHTML = table;
+                }
+            };
+            //open asynchronous since we specify true
+            http_request.open("GET", data_file, true);
+            //send request
+            http_request.send();
+        }
+    </script>
+</body>
+</html>

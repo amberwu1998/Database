@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Proteins with “proteinExistence” having “Predicted” values</title>
+</head>
+
+<body>
+    <h1 align="center">List of Predicted Proteins</h1>
+    <div align="center">
+        <button type="button" class="button" onclick="getPredictedProteins()">
+            Click Here!
+        </button>
+        <ul id="proteinList"></ul>
+    </div>
+
+    <script>
+        const api_url = "uniprot.json";
+
+        async function getPredictedProteins() {
+                const response = await fetch(api_url);
+                const data = await response.json();
+                const predictedProteins = data.docs.filter(document => document.proteinExistence === "Predicted");
+                displayPredictedProteins(predictedProteins);
+        }
+
+        function displayPredictedProteins(predictedProteins) {
+            const proteinList = document.getElementById('proteinList');
+            proteinList.innerHTML = '';
+            predictedProteins.forEach(protein => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Protein Accession: ${protein.accession}, Protein Existence: ${protein.proteinExistence}`;
+                proteinList.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
